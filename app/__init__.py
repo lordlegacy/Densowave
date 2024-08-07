@@ -1,7 +1,8 @@
 from flask import Flask
 from app.config import Config
 from app.extensions import db, migrate, bcrypt, jwt
-from app.routes import auth_bp
+from app.routes import auth_bp, business_bp
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -13,5 +14,7 @@ def create_app(config_class=Config):
     jwt.init_app(app)
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(business_bp, url_prefix='/business')
 
     return app
+
