@@ -18,7 +18,7 @@ def send_stk_push():
 
     # Replace these with your actual values
     shortcode = "174379"
-    passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+    passkey = "your passkey"
     timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
     password = get_password(shortcode, passkey, timestamp)
 
@@ -26,14 +26,14 @@ def send_stk_push():
         "BusinessShortCode": shortcode,
         "Password": password,
         "Timestamp": timestamp,
-        "TransactionType": "CustomerPayBillOnline",
-        "Amount": "1",
+        "TransactionType": "CustomerBuyGoodsOnline",
+        "Amount": "700",
         "PartyA": "254743532766",
         "PartyB": shortcode,
         "PhoneNumber": "254743532766",
         "CallBackURL": "https://mydomain.com/pat",
-        "AccountReference": "Test",
-        "TransactionDesc": "Test"
+        "AccountReference":"0A2EXWAK0",
+        "TransactionDesc": "Groceries"
     }
     url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
     response = requests.post(url, json=payload, headers=headers)
