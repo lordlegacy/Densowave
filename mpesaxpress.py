@@ -18,7 +18,7 @@ def send_stk_push():
 
     # Replace these with your actual values
     shortcode = "174379"
-    passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+    passkey = "Yourpasskey"
     timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
     password = get_password(shortcode, passkey, timestamp)
 
