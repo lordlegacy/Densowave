@@ -2,9 +2,11 @@ from flask import Blueprint, request, jsonify
 from app.models import User,BusinessInfo
 from app.extensions import db, jwt
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from app.stk_push import send_stk_push
 
 business_bp = Blueprint('business', __name__)
 auth_bp = Blueprint('auth', __name__)
+stk_bp = Blueprint('stk', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
@@ -110,3 +112,26 @@ def update_business_info():
     db.session.commit()
 
     return jsonify({"message": "Business information updated successfully"}), 200
+
+@stk_bp.route('/stk_push', methods=['POST'])
+@jwt_required()
+def handle_stk_push():
+    user_id = get_jwt_identity()
+    data = request.get_json()
+
+    amount = data['amount']
+    phone_number = data['phone_number']
+    transaction_desc = data['transaction_desc']
+
+    # Assuming you store the business info in the BusinessInfo table
+    business_info = BusinessInfo.query.filter_by(user_id=user_id).first()
+    if not business_info:
+        return jsonify({"message": "No business information found"}), 404
+
+    shortcode = business_info.business_number
+    passkey = business_info.paybill  # Assuming you store the passkey in the paybill field
+    callback_url = "https://mydomain.com/pat"  # Replace with your actual callback URL
+
+    response = send_stk_push(shortcode, passkey, amount, phone_number, phone_number, transaction_desc, callback_url)
+    
+    return jsonify(response), 200
