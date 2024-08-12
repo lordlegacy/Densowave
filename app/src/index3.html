@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="logo">PushPay</div>
+            <div class="sidebar-item" id="add-business">
+                <i class="fas fa-plus"></i> Add New Business
+            </div>
+        </div>
+        <div class="main-content">
+            <!-- Main content will go here -->
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Initial content
+            loadInitialContent();
+
+            // Handle "Add New Business" click
+            $('#add-business').click(function() {
+                loadAddBusinessForm();
+            });
+
+            // Handle form submission (event delegation)
+            $(document).on('submit', '.transaction-form', function(e) {
+                e.preventDefault();
+                submitBusinessForm();
+            });
+
+            // Handle business type change
+            $(document).on('change', '#business-type', function() {
+                toggleAccountNumberField();
+            });
+        });
+
+        function loadInitialContent() {
+            $('.main-content').html(`
+                <div class="content">
+                    <h1>Welcome to PushPay</h1>
+                    <h2>Select Business to initiate transaction</h2>
+                </div>
+            `);
+        }
+
+        function loadAddBusinessForm() {
+            $('.main-content').html(`
+                <form class="transaction-form">
+                    <h3>Register Business</h3>
+                    <label for="business-name">Business Name:</label>
+                    <input type="text" id="business-name" name="business-name" placeholder="Enter business name" required>
+                    <label for="business-type">Business Type:</label>
+                    <select id="business-type" name="business-type" required>
+                        <option value="goods-services">Goods and Services</option>
+                        <option value="billing">Billing</option>
+                    </select>
+                    <label for="paybill-number">Paybill Number:</label>
+                    <input type="text" id="paybill-number" name="paybill-number" placeholder="Enter paybill number">
+                    <label for="account-number" id="account-number-label" style="display:none;">Account Number:</label>
+                    <input type="text" id="account-number" name="account-number" placeholder="Enter account number" style="display:none;">
+                    <label for="till-number" id="till-number-label">Till Number:</label>
+                    <input type="text" id="till-number" name="till-number" placeholder="Enter till number">
+                    <button type="submit">Register</button>
+                </form>
+            `);
+            toggleAccountNumberField(); // Initialize field visibility
+        }
+
+        function toggleAccountNumberField() {
+            var businessType = $('#business-type').val();
+            if (businessType === 'billing') {
+                $('#account-number-label, #account-number').show();
+            } else {
+                $('#account-number-label, #account-number').hide();
+            }
+        }
+
+        function submitBusinessForm() {
+            // Here you would typically send the form data to your server
+            // For this example, we'll just simulate a successful submission
+            var formData = $('.transaction-form').serialize();
+            console.log('Form data:', formData);
+            alert('Business registered successfully!');
+            loadTransactionForm();
+        }
+
+        function loadTransactionForm() {
+            $('.main-content').html(`
+                <div class="content">
+                    <h1>Welcome to PushPay</h1>
+                </div>
+                <div class="submit-form">
+                    <h3>Make a Transaction</h3>
+                    <form class="transaction-form">
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone" name="phone" placeholder="Enter phone number" required>
+                
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+                
+                        <label for="transaction">Transaction Description:</label>
+                        <select id="transaction" name="transaction">
+                            <option value="deposit">Deposit</option>
+                            <option value="withdrawal">Withdrawal</option>
+                            <option value="transfer">Transfer</option>
+                        </select>
+                
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            `);
+        }
+    </script>
+</body>
+</html>

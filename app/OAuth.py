@@ -1,0 +1,38 @@
+import requests
+import base64
+from app.config import CONSUMER_KEY,CONSUMER_SECRET
+
+def generate_oauth_token(CONSUMER_KEY, CONSUMER_SECRET):
+    #Base64 encoding of Consumer Key + ":" + Consumer Secret
+    credentials = f"{CONSUMER_KEY}:{CONSUMER_SECRET}"
+    encoded_credentials = base64.b64encode(credentials.encode()).decode()
+
+    #Create a GET request with the Authorization header
+    headers = {
+        "Authorization": f"Basic {encoded_credentials}",
+        "Content-Type": "application/json"
+    }
+
+    #Send the request to the endpoint
+    url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+
+    try:
+        response = requests.get(url, headers=headers)
+        
+        if response.status_code == 200:
+            print("OAuth token generated successfully!")
+            token_data = response.json()
+            access_token = token_data.get('access_token')
+            #print(f"Access Token: {token_data.get('access_token')}")
+            #print(f"Expires in: {token_data.get('expires_in')} seconds")
+            return access_token
+        else:
+            print(f"Failed to generate OAuth token. Status code: {response.status_code}")
+            print(f"Response: {response.text}")
+
+    except requests.RequestException as e:
+        print(f"An error occurred: {e}")
+        
+
+
+generate_oauth_token(CONSUMER_KEY, CONSUMER_SECRET)

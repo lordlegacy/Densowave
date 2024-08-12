@@ -1,0 +1,211 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+/* Body styling */
+body {
+    background-color: #000000; /* Black background */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dashboard container */
+.dashboard-container {
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    background-color: rgba(255,255,255,0.13);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    width: 70%;
+    height: 80vh;
+    display: flex;
+
+}
+
+.dashboard-container *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: aliceblue;
+    color: #ffffffe6;
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    width: 25%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    border-radius: 15px 0 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-right: 2px solid rgba(255, 255, 255, 0.1); /* Incomplete border */
+}
+
+.logo {
+    font-family: 'Poppins',sans-serif;
+    color: #000000;
+    font-size: 24px;
+    font-weight:bolder;
+    text-align: center;
+    margin-top: 35px; 
+
+
+}
+
+/* Sidebar items */
+.sidebar-item {
+    background-color:darkslategrey;
+    text-align:center;
+    border: none;
+    width: 80%;
+    height: 50px;
+    margin: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+
+/* Hover effect for sidebar items */
+.sidebar-item:hover {
+    background-color: rgb(0, 255, 13);
+}
+
+/* Main content styling */
+.main-content {
+    justify-content: center;
+    width: 75%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 0 15px 15px 0;
+    /* Main content styles will be added later */
+}
+
+.content {
+    flex-grow: 1;
+    padding: 10px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content h1 {
+    text-align: center;
+    font-size: 29px;
+    padding-left: 5px;
+    color: #ffffff;
+}
+
+.content h2 {
+    text-align: center;
+    font-size: 29px;
+    margin-top: 50px;
+    color: #ffffff;
+}
+
+
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #00FF00,
+        #00FF00
+    );
+    left: 100px;
+    top: 100px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #FF0000,
+        #FF0000
+    );
+    right: 100px;
+    bottom: 100px;
+}
+
+.submit-form h3 {
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 0 15px 15px 0;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    margin: 1px 25%;
+}
+
+.transaction-form label {
+    color: #ffffff;
+    display: block;
+    margin-bottom: 1px;
+    font-size: 16px;
+}
+
+.transaction-form input,
+.transaction-form select {
+    display:block;
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.transaction-form input::placeholder {
+    color: #e5e5e5;
+}
+
+.transaction-form button {
+    align-self: center;
+    justify-self: center;
+    width: 50%;
+    padding: 15px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #080710;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.transaction-form button:hover {
+    background-color: #dddddd;
+}
+
+.transaction-form{
+    margin-left: 25%;
+}
+
+
+
+

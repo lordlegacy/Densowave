@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PushPay Dashboard</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #080710;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            color: #00FF00;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .menu {
+            flex-grow: 1;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background-color: #00FF00;
+            color: #000000;
+        }
+
+        .menu-item i {
+            margin-right: 15px;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .content h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-top: 50px;
+        }
+
+        .logout {
+            align-self: center;
+            background-color: #ffffff;
+            color: #080710;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout:hover {
+            background-color: #FF0000;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">PushPay</div>
+        <div class="menu">
+            <div class="menu-item">
+                <i class="fas fa-home"></i> Home
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-briefcase"></i> Businesses
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-cog"></i> Settings
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-info-circle"></i> About Us
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-envelope"></i> Contact Us
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h1>Welcome to PushPay Dashboard</h1>
+        <div class="logout">Logout</div>
+    </div>
+
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
