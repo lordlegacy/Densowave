@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>PushPay Login Form</title>
+    <title>Login</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <!--Stylesheet-->
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style media="screen">
         *,
         *:before,
@@ -123,7 +124,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form id="login-form">
         <h3>Login Here</h3>
 
         <label for="username">Username</label>
@@ -138,5 +139,66 @@
             New here? <a href="signup.html">Create an account</a>
         </div>
     </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#login-form').on('submit', function(e) {
+                e.preventDefault();
+
+                const username = $('#username').val();
+                const password = $('#password').val();
+
+                $.ajax({
+                    url: 'http://localhost:5000/auth/login',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ username: username, password: password }),
+                    success: function(response) {
+                        console.log('Login successful:', response);
+
+                        // Save the tokens in localStorage
+                        localStorage.setItem('access_token', response.access_token);
+                        localStorage.setItem('refresh_token', response.refresh_token);
+
+                        alert('Login successful!');
+                        window.location.href = 'dashboard.html'; // Redirect to a dashboard page
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Login error:', errorThrown);
+                        alert('Invalid username or password. Please try again.');
+                    }
+                });
+            });
+        });
+
+        // Function to refresh the access token using the refresh token
+        function refreshToken() {
+            const refresh_token = localStorage.getItem('refresh_token');
+
+            if (refresh_token) {
+                $.ajax({
+                    url: 'http://localhost:5000/auth/refresh',
+                    type: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + refresh_token
+                    },
+                    success: function(response) {
+                        console.log('Token refreshed:', response);
+
+                        // Update the access token in localStorage
+                        localStorage.setItem('access_token', response.access_token);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Token refresh error:', errorThrown);
+                        alert('Session expired. Please log in again.');
+                        window.location.href = 'login.html'; // Redirect to login page
+                    }
+                });
+            } else {
+                alert('No refresh token found. Please log in.');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
 </body>
 </html>

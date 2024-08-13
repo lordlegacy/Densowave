@@ -2,7 +2,7 @@ from app.config import PASSKEY
 from flask import Blueprint, request, jsonify
 from app.models import User,BusinessInfo
 from app.extensions import db, jwt
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, create_refresh_token
 from app.stk_push import send_stk_push
 
 business_bp = Blueprint('business', __name__)
@@ -37,9 +37,22 @@ def login():
 
     if user and user.check_password(password):
         access_token = create_access_token(identity={'username': user.username})
-        return jsonify(access_token=access_token), 200
+        refresh_token = create_refresh_token(identity={'username': user.username})
+        return jsonify({
+            'access_token': access_token,
+            'refresh_token': refresh_token
+        }), 200
+
 
     return jsonify({'message': 'Invalid credentials'}), 401
+
+@auth_bp.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    current_user = get_jwt_identity()
+    new_access_token = create_access_token(identity=current_user)
+    return jsonify(access_token=new_access_token), 200
+
 
 @auth_bp.route('/protected', methods=['GET'])
 @jwt_required()

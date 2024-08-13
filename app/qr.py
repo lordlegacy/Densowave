@@ -25,7 +25,7 @@ def generate_dynamic_qr(merchant_name, ref_no, amount, trx_code, cpi, size):
 
     # Convert payload to JSON
     json_payload = json.dumps(payload)
-    access_token = generate_oauth_token(consumer_key,consumer_secret)
+    access_token = generate_oauth_token(CONSUMER_KEY,CONSUMER_SECRET)
     # Headers
     headers = {
         "Content-Type": "application/json",
