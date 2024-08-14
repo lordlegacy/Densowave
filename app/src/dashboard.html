@@ -69,8 +69,8 @@
                         <option value="goods-services">Goods and Services</option>
                         <option value="billing">Billing</option>
                     </select>
-                    <label for="paybill-number">Paybill Number:</label>
-                    <input type="text" id="paybill-number" name="paybill-number" placeholder="Enter paybill number">
+                    <label for="paybill-number" id="paybill-number-label" style="display:none;">Paybill Number:</label>
+                    <input type="text" id="paybill-number" name="paybill-number" placeholder="Enter Paybill number" style="display:none;">
                     <label for="account-number" id="account-number-label" style="display:none;">Account Number:</label>
                     <input type="text" id="account-number" name="account-number" placeholder="Enter account number" style="display:none;">
                     <label for="till-number" id="till-number-label">Till Number:</label>
@@ -84,9 +84,11 @@
         function toggleAccountNumberField() {
             var businessType = $('#business-type').val();
             if (businessType === 'billing') {
-                $('#account-number-label, #account-number').show();
+                $('#paybill-number-label, #paybill-number, #account-number-label, #account-number').show();
+                $('#till-number-label, #till-number').hide();
             } else {
-                $('#account-number-label, #account-number').hide();
+                $('#till-number-label, #till-number').show();
+                $('#paybill-number-label, #paybill-number, #account-number-label, #account-number').hide();
             }
         }
 
