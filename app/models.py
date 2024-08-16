@@ -19,8 +19,9 @@ class User(db.Model):
 class BusinessInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    business_name = db.Column(db.String(20), nullable=False)
-    business_number = db.Column(db.String(20), nullable=False)
-    paybill = db.Column(db.String(20), nullable=False)
+    business_name = db.Column(db.String(100), nullable=False)
+    business_type = db.Column(db.String(100), nullable=False)
+    business_shortCode = db.Column(db.String(100), nullable=False)
+    account_number = db.Column(db.String(100), nullable=True)
     user = db.relationship('User', backref=db.backref('business_info', lazy=True))
 

@@ -77,8 +77,9 @@ def create_business_info():
     business_info = BusinessInfo(
         user_id=user.id,
         business_name=data['business_name'],
-        business_number=data['business_number'],
-        paybill=data['paybill']
+        business_type=data['business_type'],
+        account_number=data['account_number'],
+        business_shortCode=data['business_shortCode']
     )
     
     db.session.add(business_info)
@@ -101,8 +102,9 @@ def get_business_info():
 
     return jsonify({
         "business_name": business_info.business_name,
-        "business_number": business_info.business_number,
-        "paybill": business_info.paybill
+        "business_type": business_info.business_type,
+        "business_shortCode": business_info.business_shortCode,
+        "acccount_number": business_info.account_number
     }), 200
 
 @business_bp.route('/update', methods=['PUT'])
@@ -121,8 +123,9 @@ def update_business_info():
         return jsonify({"message": "No business information found"}), 404
     
     business_info.business_name = data['business_name']
-    business_info.business_number = data['business_number']
-    business_info.paybill = data['paybill']
+    business_info.business_type = data['business_type']
+    business_info.business_shortCode = data['business_shortCode']
+    business_info.account_number = data['account_number']
     
     db.session.commit()
 
@@ -146,8 +149,9 @@ def handle_stk_push():
     if not business_info:
         return jsonify({"message": "No business information found"}), 404
 
-    shortcode = business_info.business_number
+    shortcode = business_info.business_shortCode
+    account_number = business_info.account_number
     callback_url = "https://mydomain.com/pat"  # Replace with your actual callback URL
 
-    response = send_stk_push(shortcode, PASSKEY, amount, phone_number, phone_number, transaction_desc, callback_url)
+    response = send_stk_push(shortcode, PASSKEY, amount, phone_number, phone_number, transaction_desc, callback_url, account_number)
     return jsonify(response), 200
