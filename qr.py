@@ -19,7 +19,7 @@ def generate_dynamic_qr(merchant_name, ref_no, amount, trx_code, cpi, size):
         "RefNo": ref_no,
         "Amount": amount,
         "TrxCode": trx_code,
-        "CPI": cpi,
+        #"CPI": cpi,
         "Size": size
     }
 
